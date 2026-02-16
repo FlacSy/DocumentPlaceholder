@@ -1,0 +1,32 @@
+OUTPUT_NAME:
+  "Invoice-{INVOICE_NUM}"
+
+OUTPUT_FORMAT:
+  - docx
+  - pdf
+
+ON_END:
+  SQL('UPDATE document SET last_document_num = last_document_num + 1 WHERE rowid = 1')
+
+ON_START:
+  - SQL('CREATE TABLE IF NOT EXISTS document (last_document_num INTEGER DEFAULT 0)')
+  - SQL('INSERT OR IGNORE INTO document (rowid, last_document_num) VALUES (1, 0)')
+
+INVOICE_NUM:
+  "{CURRENT_DATE_NUM(year)}-{CURRENT_DATE_NUM(month)}-{SQL('SELECT last_document_num FROM document WHERE rowid = 1')+1}"
+
+MONTH_STR:
+  CURRENT_DATE_STR(month)
+
+DAY_NUM:
+  CURRENT_DATE_NUM(day)
+
+YEAR_NUM:
+  CURRENT_DATE_NUM(year)
+
+PRICE:
+  500
+
+DESCRIPTION:
+  "Software Development Services – Backend Development
+   (Period: {CURRENT_DATE_NUM(day, month, year)-DAYS(7)} - {CURRENT_DATE_NUM(day, month, year)})"

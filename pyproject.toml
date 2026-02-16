@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "document-placeholder"
+dynamic = ["version"]
+description = "Fill Word document templates using YAML configs with a powerful expression language, built-in functions, and SQLite integration."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "FlacSy" },
+]
+keywords = [
+    "docx", "word", "template", "placeholder", "yaml",
+    "document", "automation", "pdf", "report",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business",
+    "Topic :: Text Processing :: Markup",
+]
+dependencies = [
+    "python-docx>=1.1.0",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+gui = ["customtkinter>=5.2.0"]
+dev = ["pytest>=8.0"]
+all = ["customtkinter>=5.2.0", "pytest>=8.0"]
+
+[project.scripts]
+docplaceholder = "document_placeholder.cli:main"
+
+[project.gui-scripts]
+docplaceholder-gui = "document_placeholder.gui:main"
+
+[project.urls]
+Homepage = "https://github.com/FlacSy/DocumentPlaceholder"
+Repository = "https://github.com/FlacSy/DocumentPlaceholder"
+Issues = "https://github.com/FlacSy/DocumentPlaceholder/issues"
+Documentation = "https://github.com/FlacSy/DocumentPlaceholder/blob/master/FUNCTIONS.md"
+
+[tool.hatch.version]
+path = "document_placeholder/__init__.py"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
