@@ -96,4 +96,5 @@ def format_num(n, decimals=2) -> str:
 def random_int(low, high) -> int:
     """Return a random integer in [*low*, *high*]."""
     import random
+
     return random.randint(int(low), int(high))

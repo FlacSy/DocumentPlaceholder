@@ -114,7 +114,9 @@ class Evaluator:
     # -- output name resolution -----------------------------------------------
 
     def resolve_output_name(
-        self, raw_name: str, values: dict[str, object],
+        self,
+        raw_name: str,
+        values: dict[str, object],
     ) -> str:
         """Resolve ``OUTPUT_NAME``: substitute ``{KEY}`` placeholders, then
         evaluate any remaining ``{expression}`` patterns."""
@@ -123,7 +125,8 @@ class Evaluator:
             placeholder = "{" + key + "}"
             if placeholder in result:
                 result = result.replace(
-                    placeholder, str(value) if value is not None else "")
+                    placeholder, str(value) if value is not None else ""
+                )
         # Only evaluate remaining {expr} patterns — never parse the whole
         # string as a single expression (it may contain literal dashes, etc.)
         if "{" in result:

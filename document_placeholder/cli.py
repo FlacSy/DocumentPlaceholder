@@ -6,9 +6,9 @@ import argparse
 import sys
 from pathlib import Path
 
-import document_placeholder.functions.date    # noqa: F401 — register functions
-import document_placeholder.functions.logic   # noqa: F401
-import document_placeholder.functions.math    # noqa: F401
+import document_placeholder.functions.date  # noqa: F401 — register functions
+import document_placeholder.functions.logic  # noqa: F401
+import document_placeholder.functions.math  # noqa: F401
 import document_placeholder.functions.string  # noqa: F401
 import document_placeholder.functions.sql as sql_mod
 from document_placeholder.config import Config
@@ -23,23 +23,32 @@ def main() -> None:
         description="DocumentPlaceholder — fill Word templates using YAML configs",
     )
     parser.add_argument(
-        "-c", "--config", default="template.yaml",
+        "-c",
+        "--config",
+        default="template.yaml",
         help="YAML config path (default: template.yaml)",
     )
     parser.add_argument(
-        "-t", "--template", default="template.docx",
+        "-t",
+        "--template",
+        default="template.docx",
         help="Word template path (default: template.docx)",
     )
     parser.add_argument(
-        "-o", "--output", default="output.docx",
+        "-o",
+        "--output",
+        default="output.docx",
         help="Output file path (default: output.docx)",
     )
     parser.add_argument(
-        "--db", default="data.db",
+        "--db",
+        default="data.db",
         help="SQLite database path (default: data.db)",
     )
     parser.add_argument(
-        "-V", "--version", action="version",
+        "-V",
+        "--version",
+        action="version",
         version=f"%(prog)s {__import__('document_placeholder').__version__}",
     )
     args = parser.parse_args()

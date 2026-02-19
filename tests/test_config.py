@@ -56,11 +56,7 @@ class TestConfigFromString:
         assert cfg.placeholders == {}
 
     def test_with_special_keys(self):
-        cfg = Config.from_string(
-            "ON_START: init\n"
-            "KEY: value\n"
-            "ON_END: cleanup\n"
-        )
+        cfg = Config.from_string("ON_START: init\n" "KEY: value\n" "ON_END: cleanup\n")
         assert cfg.on_start == ["init"]
         assert cfg.on_end == ["cleanup"]
         assert cfg.placeholders == {"KEY": "value"}

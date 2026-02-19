@@ -17,7 +17,6 @@ from document_placeholder.parser import (
     UnaryOp,
 )
 
-
 # ── Tokenizer ───────────────────────────────────────────────────────────────
 
 
@@ -67,8 +66,12 @@ class TestTokenizer:
     def test_arithmetic_operators(self):
         types = self._types("+ - * / %")
         assert types == [
-            TokenType.PLUS, TokenType.MINUS, TokenType.STAR,
-            TokenType.SLASH, TokenType.PERCENT, TokenType.EOF,
+            TokenType.PLUS,
+            TokenType.MINUS,
+            TokenType.STAR,
+            TokenType.SLASH,
+            TokenType.PERCENT,
+            TokenType.EOF,
         ]
 
     def test_comparison_single_char(self):
@@ -78,7 +81,10 @@ class TestTokenizer:
     def test_comparison_two_char(self):
         types = self._types(">= <= == !=")
         assert types == [
-            TokenType.GTE, TokenType.LTE, TokenType.EQ, TokenType.NEQ,
+            TokenType.GTE,
+            TokenType.LTE,
+            TokenType.EQ,
+            TokenType.NEQ,
             TokenType.EOF,
         ]
 
@@ -91,8 +97,12 @@ class TestTokenizer:
     def test_parens_comma(self):
         types = self._types("(a, b)")
         assert types == [
-            TokenType.LPAREN, TokenType.IDENTIFIER, TokenType.COMMA,
-            TokenType.IDENTIFIER, TokenType.RPAREN, TokenType.EOF,
+            TokenType.LPAREN,
+            TokenType.IDENTIFIER,
+            TokenType.COMMA,
+            TokenType.IDENTIFIER,
+            TokenType.RPAREN,
+            TokenType.EOF,
         ]
 
     # -- whitespace -----------------------------------------------------------
@@ -117,11 +127,16 @@ class TestTokenizer:
     def test_complex(self):
         types = self._types("FOO(1, 'a') + 3 >= 10")
         assert types == [
-            TokenType.IDENTIFIER, TokenType.LPAREN,
-            TokenType.NUMBER, TokenType.COMMA,
-            TokenType.STRING, TokenType.RPAREN,
-            TokenType.PLUS, TokenType.NUMBER,
-            TokenType.GTE, TokenType.NUMBER,
+            TokenType.IDENTIFIER,
+            TokenType.LPAREN,
+            TokenType.NUMBER,
+            TokenType.COMMA,
+            TokenType.STRING,
+            TokenType.RPAREN,
+            TokenType.PLUS,
+            TokenType.NUMBER,
+            TokenType.GTE,
+            TokenType.NUMBER,
             TokenType.EOF,
         ]
 

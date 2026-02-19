@@ -10,9 +10,9 @@ from pathlib import Path
 import customtkinter as ctk
 from tkinter import filedialog
 
-import document_placeholder.functions.date    # noqa: F401 — register functions
-import document_placeholder.functions.logic   # noqa: F401
-import document_placeholder.functions.math    # noqa: F401
+import document_placeholder.functions.date  # noqa: F401 — register functions
+import document_placeholder.functions.logic  # noqa: F401
+import document_placeholder.functions.math  # noqa: F401
 import document_placeholder.functions.string  # noqa: F401
 import document_placeholder.functions.sql as sql_mod
 from document_placeholder.config import Config
@@ -84,12 +84,14 @@ class App(ctk.CTk):
         box.grid(row=0, column=0, padx=24, pady=(16, 6), sticky="ew")
 
         ctk.CTkLabel(
-            box, text="DocumentPlaceholder",
+            box,
+            text="DocumentPlaceholder",
             font=ctk.CTkFont(size=22, weight="bold"),
         ).pack(side="left")
 
         ctk.CTkLabel(
-            box, text="Edit config, preview values, generate document",
+            box,
+            text="Edit config, preview values, generate document",
             text_color="gray",
         ).pack(side="left", padx=(12, 0))
 
@@ -102,40 +104,48 @@ class App(ctk.CTk):
         lbl_w = 80
 
         ctk.CTkLabel(frame, text="Config:", width=lbl_w, anchor="w").grid(
-            row=0, column=0, padx=(14, 2), pady=(10, 4), sticky="w")
+            row=0, column=0, padx=(14, 2), pady=(10, 4), sticky="w"
+        )
         self.config_var = ctk.StringVar(value="template.yaml")
         ctk.CTkEntry(frame, textvariable=self.config_var, height=28).grid(
-            row=0, column=1, padx=2, pady=(10, 4), sticky="ew")
-        ctk.CTkButton(frame, text="...", width=30, height=28,
-                       command=self._browse_config).grid(
-            row=0, column=2, padx=(2, 16), pady=(10, 4))
+            row=0, column=1, padx=2, pady=(10, 4), sticky="ew"
+        )
+        ctk.CTkButton(
+            frame, text="...", width=30, height=28, command=self._browse_config
+        ).grid(row=0, column=2, padx=(2, 16), pady=(10, 4))
 
         ctk.CTkLabel(frame, text="Template:", width=lbl_w, anchor="w").grid(
-            row=0, column=3, padx=(16, 2), pady=(10, 4), sticky="w")
+            row=0, column=3, padx=(16, 2), pady=(10, 4), sticky="w"
+        )
         self.template_var = ctk.StringVar(value="template.docx")
         ctk.CTkEntry(frame, textvariable=self.template_var, height=28).grid(
-            row=0, column=4, padx=2, pady=(10, 4), sticky="ew")
-        ctk.CTkButton(frame, text="...", width=30, height=28,
-                       command=self._browse_template).grid(
-            row=0, column=5, padx=(2, 14), pady=(10, 4))
+            row=0, column=4, padx=2, pady=(10, 4), sticky="ew"
+        )
+        ctk.CTkButton(
+            frame, text="...", width=30, height=28, command=self._browse_template
+        ).grid(row=0, column=5, padx=(2, 14), pady=(10, 4))
 
         ctk.CTkLabel(frame, text="Output:", width=lbl_w, anchor="w").grid(
-            row=1, column=0, padx=(14, 2), pady=(4, 10), sticky="w")
+            row=1, column=0, padx=(14, 2), pady=(4, 10), sticky="w"
+        )
         self.output_var = ctk.StringVar(value="output.docx")
         ctk.CTkEntry(frame, textvariable=self.output_var, height=28).grid(
-            row=1, column=1, padx=2, pady=(4, 10), sticky="ew")
-        ctk.CTkButton(frame, text="...", width=30, height=28,
-                       command=self._browse_output).grid(
-            row=1, column=2, padx=(2, 16), pady=(4, 10))
+            row=1, column=1, padx=2, pady=(4, 10), sticky="ew"
+        )
+        ctk.CTkButton(
+            frame, text="...", width=30, height=28, command=self._browse_output
+        ).grid(row=1, column=2, padx=(2, 16), pady=(4, 10))
 
         ctk.CTkLabel(frame, text="Database:", width=lbl_w, anchor="w").grid(
-            row=1, column=3, padx=(16, 2), pady=(4, 10), sticky="w")
+            row=1, column=3, padx=(16, 2), pady=(4, 10), sticky="w"
+        )
         self.db_var = ctk.StringVar(value="data.db")
         ctk.CTkEntry(frame, textvariable=self.db_var, height=28).grid(
-            row=1, column=4, padx=2, pady=(4, 10), sticky="ew")
-        ctk.CTkButton(frame, text="...", width=30, height=28,
-                       command=self._browse_db).grid(
-            row=1, column=5, padx=(2, 14), pady=(4, 10))
+            row=1, column=4, padx=2, pady=(4, 10), sticky="ew"
+        )
+        ctk.CTkButton(
+            frame, text="...", width=30, height=28, command=self._browse_db
+        ).grid(row=1, column=5, padx=(2, 14), pady=(4, 10))
 
     # ── main area (tabview) ─────────────────────────────────────────────────
 
@@ -163,12 +173,16 @@ class App(ctk.CTk):
 
         mono = ctk.CTkFont(family="monospace", size=13)
 
-        ctk.CTkLabel(pane, text="Config (YAML)",
-                     font=ctk.CTkFont(size=13, weight="bold"),
-                     ).grid(row=0, column=0, padx=8, pady=(4, 2), sticky="w")
-        ctk.CTkLabel(pane, text="Preview",
-                     font=ctk.CTkFont(size=13, weight="bold"),
-                     ).grid(row=0, column=1, padx=8, pady=(4, 2), sticky="w")
+        ctk.CTkLabel(
+            pane,
+            text="Config (YAML)",
+            font=ctk.CTkFont(size=13, weight="bold"),
+        ).grid(row=0, column=0, padx=8, pady=(4, 2), sticky="w")
+        ctk.CTkLabel(
+            pane,
+            text="Preview",
+            font=ctk.CTkFont(size=13, weight="bold"),
+        ).grid(row=0, column=1, padx=8, pady=(4, 2), sticky="w")
 
         editor_box = ctk.CTkFrame(pane, fg_color="transparent")
         editor_box.grid(row=1, column=0, padx=(8, 4), pady=(0, 8), sticky="nsew")
@@ -191,14 +205,19 @@ class App(ctk.CTk):
         bar = ctk.CTkFrame(parent, fg_color="transparent")
         bar.grid(row=1, column=0, pady=(4, 0), sticky="ew")
 
-        ctk.CTkButton(bar, text="Save Config  Ctrl+S", width=160,
-                       command=self._save_config).pack(side="left", padx=(0, 8))
-        self.preview_btn = ctk.CTkButton(bar, text="Preview  F5", width=140,
-                                          command=self._on_preview)
+        ctk.CTkButton(
+            bar, text="Save Config  Ctrl+S", width=160, command=self._save_config
+        ).pack(side="left", padx=(0, 8))
+        self.preview_btn = ctk.CTkButton(
+            bar, text="Preview  F5", width=140, command=self._on_preview
+        )
         self.preview_btn.pack(side="left", padx=8)
         self.generate_btn = ctk.CTkButton(
-            bar, text="Generate Document", width=180,
-            font=ctk.CTkFont(weight="bold"), command=self._on_generate,
+            bar,
+            text="Generate Document",
+            width=180,
+            font=ctk.CTkFont(weight="bold"),
+            command=self._on_generate,
         )
         self.generate_btn.pack(side="right")
 
@@ -215,24 +234,43 @@ class App(ctk.CTk):
         self.search_var.trace_add("write", lambda *_: self._do_search())
 
         self.search_entry = ctk.CTkEntry(
-            self.search_frame, textvariable=self.search_var,
-            placeholder_text="Search...", height=28, font=mono_font,
+            self.search_frame,
+            textvariable=self.search_var,
+            placeholder_text="Search...",
+            height=28,
+            font=mono_font,
         )
         self.search_entry.pack(side="left", fill="x", expand=True, padx=(8, 4), pady=6)
 
-        ctk.CTkButton(self.search_frame, text="\u25B2", width=30, height=28,
-                       command=self._search_prev).pack(side="left", padx=2, pady=6)
-        ctk.CTkButton(self.search_frame, text="\u25BC", width=30, height=28,
-                       command=self._search_next).pack(side="left", padx=2, pady=6)
+        ctk.CTkButton(
+            self.search_frame,
+            text="\u25b2",
+            width=30,
+            height=28,
+            command=self._search_prev,
+        ).pack(side="left", padx=2, pady=6)
+        ctk.CTkButton(
+            self.search_frame,
+            text="\u25bc",
+            width=30,
+            height=28,
+            command=self._search_next,
+        ).pack(side="left", padx=2, pady=6)
 
         self.search_info_var = ctk.StringVar(value="")
-        ctk.CTkLabel(self.search_frame, textvariable=self.search_info_var,
-                     width=70).pack(side="left", padx=4, pady=6)
+        ctk.CTkLabel(
+            self.search_frame, textvariable=self.search_info_var, width=70
+        ).pack(side="left", padx=4, pady=6)
 
-        ctk.CTkButton(self.search_frame, text="\u2715", width=28, height=28,
-                       fg_color="transparent", hover_color=("gray70", "gray30"),
-                       command=self._hide_search,
-                       ).pack(side="right", padx=(2, 8), pady=6)
+        ctk.CTkButton(
+            self.search_frame,
+            text="\u2715",
+            width=28,
+            height=28,
+            fg_color="transparent",
+            hover_color=("gray70", "gray30"),
+            command=self._hide_search,
+        ).pack(side="right", padx=(2, 8), pady=6)
 
         self.search_entry.bind("<Return>", lambda e: self._search_next())
         self.search_entry.bind("<Shift-Return>", lambda e: self._search_prev())
@@ -256,10 +294,12 @@ class App(ctk.CTk):
 
         hdr = ctk.CTkFrame(left, fg_color="transparent")
         hdr.grid(row=0, column=0, padx=10, pady=(8, 4), sticky="ew")
-        ctk.CTkLabel(hdr, text="Tables",
-                     font=ctk.CTkFont(size=13, weight="bold")).pack(side="left")
-        ctk.CTkButton(hdr, text="Refresh", width=70, height=26,
-                       command=self._refresh_tables).pack(side="right")
+        ctk.CTkLabel(hdr, text="Tables", font=ctk.CTkFont(size=13, weight="bold")).pack(
+            side="left"
+        )
+        ctk.CTkButton(
+            hdr, text="Refresh", width=70, height=26, command=self._refresh_tables
+        ).pack(side="right")
 
         self._table_list_frame = ctk.CTkScrollableFrame(left, width=230)
         self._table_list_frame.grid(row=1, column=0, padx=10, pady=4, sticky="nsew")
@@ -267,12 +307,16 @@ class App(ctk.CTk):
         self._table_buttons: dict[str, ctk.CTkButton] = {}
         self._selected_table: str | None = None
 
-        ctk.CTkLabel(left, text="Schema",
-                     font=ctk.CTkFont(size=13, weight="bold"),
-                     ).grid(row=2, column=0, padx=10, pady=(8, 2), sticky="w")
+        ctk.CTkLabel(
+            left,
+            text="Schema",
+            font=ctk.CTkFont(size=13, weight="bold"),
+        ).grid(row=2, column=0, padx=10, pady=(8, 2), sticky="w")
 
         self.schema_box = ctk.CTkTextbox(
-            left, state="disabled", font=ctk.CTkFont(family="monospace", size=12),
+            left,
+            state="disabled",
+            font=ctk.CTkFont(family="monospace", size=12),
         )
         self.schema_box.grid(row=3, column=0, padx=10, pady=(0, 10), sticky="nsew")
 
@@ -289,16 +333,20 @@ class App(ctk.CTk):
         sql_frame.grid_columnconfigure(0, weight=1)
         sql_frame.grid_rowconfigure(1, weight=1)
 
-        ctk.CTkLabel(sql_frame, text="SQL Query",
-                     font=ctk.CTkFont(size=13, weight="bold"),
-                     ).grid(row=0, column=0, padx=12, pady=(8, 2), sticky="w")
+        ctk.CTkLabel(
+            sql_frame,
+            text="SQL Query",
+            font=ctk.CTkFont(size=13, weight="bold"),
+        ).grid(row=0, column=0, padx=12, pady=(8, 2), sticky="w")
 
         self.sql_editor = ctk.CTkTextbox(sql_frame, font=mono, wrap="word")
         self.sql_editor.grid(row=1, column=0, padx=12, pady=(0, 4), sticky="nsew")
         self.sql_editor.bind(
-            "<Control-Return>", lambda e: (self._execute_sql(), "break")[-1])
+            "<Control-Return>", lambda e: (self._execute_sql(), "break")[-1]
+        )
         self.sql_editor.bind(
-            "<Control-KP_Enter>", lambda e: (self._execute_sql(), "break")[-1])
+            "<Control-KP_Enter>", lambda e: (self._execute_sql(), "break")[-1]
+        )
 
         self._sql_hl = SqlHighlighter(self.sql_editor._textbox)
         self._sql_hl_timer: str | None = None
@@ -308,12 +356,16 @@ class App(ctk.CTk):
         btn_bar.grid(row=2, column=0, padx=12, pady=(0, 8), sticky="ew")
 
         self.sql_exec_btn = ctk.CTkButton(
-            btn_bar, text="Execute  Ctrl+Enter", width=170,
+            btn_bar,
+            text="Execute  Ctrl+Enter",
+            width=170,
             command=self._execute_sql,
         )
         self.sql_exec_btn.pack(side="left")
         ctk.CTkButton(
-            btn_bar, text="Clear", width=70,
+            btn_bar,
+            text="Clear",
+            width=70,
             command=lambda: self.sql_editor.delete("1.0", "end"),
         ).pack(side="left", padx=(8, 0))
 
@@ -324,12 +376,17 @@ class App(ctk.CTk):
         res_frame.grid_rowconfigure(1, weight=1)
 
         self.result_info_var = ctk.StringVar(value="Results")
-        ctk.CTkLabel(res_frame, textvariable=self.result_info_var,
-                     font=ctk.CTkFont(size=13, weight="bold"),
-                     ).grid(row=0, column=0, padx=12, pady=(8, 2), sticky="w")
+        ctk.CTkLabel(
+            res_frame,
+            textvariable=self.result_info_var,
+            font=ctk.CTkFont(size=13, weight="bold"),
+        ).grid(row=0, column=0, padx=12, pady=(8, 2), sticky="w")
 
         self.result_box = ctk.CTkTextbox(
-            res_frame, font=mono, wrap="none", state="disabled",
+            res_frame,
+            font=mono,
+            wrap="none",
+            state="disabled",
         )
         self.result_box.grid(row=1, column=0, padx=12, pady=(0, 12), sticky="nsew")
 
@@ -337,9 +394,12 @@ class App(ctk.CTk):
 
     def _build_status(self):
         self.status_var = ctk.StringVar(value="Ready")
-        ctk.CTkLabel(self, textvariable=self.status_var, anchor="w",
-                     text_color="gray",
-                     ).grid(row=3, column=0, padx=24, pady=(0, 10), sticky="ew")
+        ctk.CTkLabel(
+            self,
+            textvariable=self.status_var,
+            anchor="w",
+            text_color="gray",
+        ).grid(row=3, column=0, padx=24, pady=(0, 10), sticky="ew")
 
     # ── search ──────────────────────────────────────────────────────────────
 
@@ -405,7 +465,8 @@ class App(ctk.CTk):
             tb.tag_raise("search_cur")
             tb.see(p)
             self.search_info_var.set(
-                f"{self._search_idx + 1}/{len(self._search_matches)}")
+                f"{self._search_idx + 1}/{len(self._search_matches)}"
+            )
 
     def _search_next(self):
         if self._search_matches:
@@ -446,30 +507,33 @@ class App(ctk.CTk):
 
     def _browse_config(self):
         p = filedialog.askopenfilename(
-            title="Select config",
-            filetypes=[("YAML", "*.yaml *.yml"), ("All", "*.*")])
+            title="Select config", filetypes=[("YAML", "*.yaml *.yml"), ("All", "*.*")]
+        )
         if p:
             self.config_var.set(p)
             self._load_config_file(p)
 
     def _browse_template(self):
         p = filedialog.askopenfilename(
-            title="Select template",
-            filetypes=[("Word", "*.docx"), ("All", "*.*")])
+            title="Select template", filetypes=[("Word", "*.docx"), ("All", "*.*")]
+        )
         if p:
             self.template_var.set(p)
 
     def _browse_output(self):
         p = filedialog.asksaveasfilename(
-            title="Save output as", defaultextension=".docx",
-            filetypes=[("Word", "*.docx"), ("PDF", "*.pdf"), ("All", "*.*")])
+            title="Save output as",
+            defaultextension=".docx",
+            filetypes=[("Word", "*.docx"), ("PDF", "*.pdf"), ("All", "*.*")],
+        )
         if p:
             self.output_var.set(p)
 
     def _browse_db(self):
         p = filedialog.askopenfilename(
             title="Select database",
-            filetypes=[("SQLite", "*.db *.sqlite"), ("All", "*.*")])
+            filetypes=[("SQLite", "*.db *.sqlite"), ("All", "*.*")],
+        )
         if p:
             self.db_var.set(p)
             self._refresh_tables()
@@ -513,7 +577,9 @@ class App(ctk.CTk):
         db_path = self.db_var.get()
         self.preview_btn.configure(state="disabled", text="Loading...")
         threading.Thread(
-            target=self._do_preview, args=(yaml_text, db_path), daemon=True,
+            target=self._do_preview,
+            args=(yaml_text, db_path),
+            daemon=True,
         ).start()
 
     def _do_preview(self, yaml_text: str, db_path: str):
@@ -558,8 +624,10 @@ class App(ctk.CTk):
             self.after(0, lambda: self.status_var.set("Preview error"))
         finally:
             sql_mod.close()
-            self.after(0, lambda: self.preview_btn.configure(
-                state="normal", text="Preview  F5"))
+            self.after(
+                0,
+                lambda: self.preview_btn.configure(state="normal", text="Preview  F5"),
+            )
 
     # ── editor: generate ────────────────────────────────────────────────────
 
@@ -570,7 +638,9 @@ class App(ctk.CTk):
         db = self.db_var.get()
         self.generate_btn.configure(state="disabled", text="Generating...")
         threading.Thread(
-            target=self._do_generate, args=(yaml_text, tpl, out, db), daemon=True,
+            target=self._do_generate,
+            args=(yaml_text, tpl, out, db),
+            daemon=True,
         ).start()
 
     def _do_generate(self, yaml_text: str, tpl: str, out: str, db: str):
@@ -594,8 +664,7 @@ class App(ctk.CTk):
             output_arg = Path(out)
             output_dir = output_arg.parent or Path(".")
             if config.output_name:
-                base_name = evaluator.resolve_output_name(
-                    config.output_name, values)
+                base_name = evaluator.resolve_output_name(config.output_name, values)
             else:
                 base_name = output_arg.stem
             fmts = config.output_format
@@ -638,8 +707,12 @@ class App(ctk.CTk):
             self.after(0, lambda: self.status_var.set("Generation failed"))
         finally:
             sql_mod.close()
-            self.after(0, lambda: self.generate_btn.configure(
-                state="normal", text="Generate Document"))
+            self.after(
+                0,
+                lambda: self.generate_btn.configure(
+                    state="normal", text="Generate Document"
+                ),
+            )
 
     # ── database: table browser ─────────────────────────────────────────────
 
@@ -662,7 +735,7 @@ class App(ctk.CTk):
             tables = [r[0] for r in cur.fetchall()]
 
             for tbl in tables:
-                cur.execute(f"SELECT COUNT(*) FROM \"{tbl}\"")
+                cur.execute(f'SELECT COUNT(*) FROM "{tbl}"')
                 cnt = cur.fetchone()[0]
                 btn = ctk.CTkButton(
                     self._table_list_frame,
@@ -678,24 +751,21 @@ class App(ctk.CTk):
                 self._table_buttons[tbl] = btn
 
             conn.close()
-            self.status_var.set(
-                f"Database: {len(tables)} table(s) in {db_path}")
+            self.status_var.set(f"Database: {len(tables)} table(s) in {db_path}")
         except Exception as exc:
             self.status_var.set(f"DB error: {exc}")
 
     def _on_table_click(self, table_name: str):
         if self._selected_table and self._selected_table in self._table_buttons:
-            self._table_buttons[self._selected_table].configure(
-                fg_color="transparent")
+            self._table_buttons[self._selected_table].configure(fg_color="transparent")
 
         self._selected_table = table_name
-        self._table_buttons[table_name].configure(
-            fg_color=("gray75", "gray35"))
+        self._table_buttons[table_name].configure(fg_color=("gray75", "gray35"))
 
         self._show_table_schema(table_name)
 
         self.sql_editor.delete("1.0", "end")
-        self.sql_editor.insert("1.0", f"SELECT * FROM \"{table_name}\" LIMIT 100;")
+        self.sql_editor.insert("1.0", f'SELECT * FROM "{table_name}" LIMIT 100;')
         self._schedule_sql_highlight()
 
     def _show_table_schema(self, table_name: str):
@@ -704,10 +774,10 @@ class App(ctk.CTk):
             conn = sqlite3.connect(db_path)
             cur = conn.cursor()
 
-            cur.execute(f"PRAGMA table_info(\"{table_name}\")")
+            cur.execute(f'PRAGMA table_info("{table_name}")')
             columns = cur.fetchall()
 
-            cur.execute(f"SELECT COUNT(*) FROM \"{table_name}\"")
+            cur.execute(f'SELECT COUNT(*) FROM "{table_name}"')
             count = cur.fetchone()[0]
             conn.close()
 
@@ -784,7 +854,9 @@ class App(ctk.CTk):
         lines = [hdr, sep]
         for row in rows:
             cells = [str(v) if v is not None else "NULL" for v in row]
-            lines.append(" | ".join(cells[i].ljust(col_w[i]) for i in range(len(cells))))
+            lines.append(
+                " | ".join(cells[i].ljust(col_w[i]) for i in range(len(cells)))
+            )
 
         n = len(rows)
         lines.append(f"\n({n} row{'s' if n != 1 else ''})")

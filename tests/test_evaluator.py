@@ -5,10 +5,10 @@ from __future__ import annotations
 import pytest
 
 # Ensure all function modules are imported so that the registry is populated.
-import document_placeholder.functions.date     # noqa: F401
-import document_placeholder.functions.logic    # noqa: F401
-import document_placeholder.functions.math     # noqa: F401
-import document_placeholder.functions.string   # noqa: F401
+import document_placeholder.functions.date  # noqa: F401
+import document_placeholder.functions.logic  # noqa: F401
+import document_placeholder.functions.math  # noqa: F401
+import document_placeholder.functions.string  # noqa: F401
 
 from document_placeholder.evaluator import Evaluator
 

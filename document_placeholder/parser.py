@@ -17,10 +17,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-
 # ---------------------------------------------------------------------------
 # Tokens
 # ---------------------------------------------------------------------------
+
 
 class TokenType:
     IDENTIFIER = "IDENTIFIER"
@@ -54,6 +54,7 @@ class Token:
 # Tokenizer
 # ---------------------------------------------------------------------------
 
+
 class Tokenizer:
     def __init__(self, text: str) -> None:
         self.text = text
@@ -66,7 +67,7 @@ class Tokenizer:
     @property
     def consumed_all(self) -> bool:
         """True when every character was consumed (no trailing junk)."""
-        return self.pos >= len(self.text) or self.text[self.pos:].strip() == ""
+        return self.pos >= len(self.text) or self.text[self.pos :].strip() == ""
 
     # -- internals ------------------------------------------------------------
 
@@ -114,9 +115,7 @@ class Tokenizer:
             elif ch.isalpha() or ch == "_":
                 self._read_identifier()
             else:
-                raise SyntaxError(
-                    f"Unexpected character '{ch}' at position {self.pos}"
-                )
+                raise SyntaxError(f"Unexpected character '{ch}' at position {self.pos}")
 
         self.tokens.append(Token(TokenType.EOF, None, self.pos))
 
@@ -173,6 +172,7 @@ class Tokenizer:
 # AST nodes
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class NumberLiteral:
     value: int | float
@@ -211,6 +211,7 @@ class UnaryOp:
 # Parser
 # ---------------------------------------------------------------------------
 
+
 class Parser:
     def __init__(self, tokens: list[Token]) -> None:
         self.tokens = tokens
@@ -247,8 +248,12 @@ class Parser:
     def _comparison(self) -> Any:
         left = self._additive()
         cmp_ops = (
-            TokenType.GT, TokenType.LT, TokenType.GTE,
-            TokenType.LTE, TokenType.EQ, TokenType.NEQ,
+            TokenType.GT,
+            TokenType.LT,
+            TokenType.GTE,
+            TokenType.LTE,
+            TokenType.EQ,
+            TokenType.NEQ,
         )
         if self._current().type in cmp_ops:
             op = self._current().value
@@ -268,7 +273,11 @@ class Parser:
 
     def _multiplicative(self) -> Any:
         left = self._unary()
-        while self._current().type in (TokenType.STAR, TokenType.SLASH, TokenType.PERCENT):
+        while self._current().type in (
+            TokenType.STAR,
+            TokenType.SLASH,
+            TokenType.PERCENT,
+        ):
             op = self._current().value
             self.pos += 1
             right = self._unary()

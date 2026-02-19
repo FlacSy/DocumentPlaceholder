@@ -80,7 +80,7 @@ def left(text, n) -> str:
 @_reg("RIGHT")
 def right(text, n) -> str:
     """Return the last *n* characters."""
-    return str(text)[-int(n):]
+    return str(text)[-int(n) :]
 
 
 @_reg("PAD_LEFT")
