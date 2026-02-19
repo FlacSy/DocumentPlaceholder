@@ -2,56 +2,56 @@
 
   # 📄 DocumentPlaceholder
 
-  **Автоматическое заполнение Word-шаблонов с помощью YAML-конфигов, выражений и SQL.**
+  **Automatically fill Word templates using YAML configs, expressions, and SQL.**
 
-  *Создавайте счета, акты, отчёты и любые документы — одной командой.*
+  *Generate invoices, reports, statements, and any other documents with a single command.*
 
   [![PyPI Version](https://img.shields.io/pypi/v/document-placeholder?style=flat-square&color=blue)](https://pypi.org/project/document-placeholder/)
   [![Python Versions](https://img.shields.io/pypi/pyversions/document-placeholder?style=flat-square)](https://pypi.org/project/document-placeholder/)
   [![License](https://img.shields.io/pypi/l/document-placeholder?style=flat-square)](https://opensource.org/licenses/MIT)
   [![Tests](https://img.shields.io/badge/tests-295%20passed-brightgreen?style=flat-square)]()
 
-  [Возможности](#-возможности) • [Установка](#-установка) • [Быстрый старт](#-быстрый-старт) • [Конфигурация](#-конфигурация) • [Функции](#-встроенные-функции) • [GUI](#-графический-интерфейс)
+  [Features](#-features) • [Installation](#-installation) • [Quick Start](#-quick-start) • [Configuration](#-configuration) • [Functions](#-built-in-functions) • [GUI](#-graphical-interface)
 
 </div>
 
 ---
 
-## 🚀 Возможности
+## 🚀 Features
 
-**DocumentPlaceholder** превращает шаблонные `.docx`-документы в готовые файлы на основе YAML-конфигов с мощным языком выражений.
+**DocumentPlaceholder** turns `.docx` templates into ready-to-use documents based on YAML configs with a powerful expression language.
 
-* 📝 **Word-шаблоны** — плейсхолдеры `{KEY}` в тексте, таблицах, колонтитулах.
-* ⚡ **Язык выражений** — арифметика, сравнения, вложенные вызовы функций, шаблонные строки.
-* 🛢 **SQLite из коробки** — запросы к базе прямо в конфиге: счётчики, справочники, данные клиентов.
-* 📅 **59 встроенных функций** — даты, строки, математика, логика, условия.
-* 📤 **Экспорт в PDF** — автоматическая конвертация через LibreOffice.
-* 🖥 **GUI с подсветкой синтаксиса** — редактор конфигов, предпросмотр, SQL-менеджер.
-* 🔌 **Расширяемость** — добавляйте свои функции одним декоратором.
+* 📝 **Word templates** — placeholders like `{KEY}` in text, tables, and headers/footers.
+* ⚡ **Expression language** — arithmetic, comparisons, nested function calls, and template strings.
+* 🛢 **SQLite out of the box** — run database queries directly inside configs for counters, lookups, and client data.
+* 📅 **59 built-in functions** — date/time, strings, math, logic, and conditions.
+* 📤 **PDF export** — automatic conversion through LibreOffice.
+* 🖥 **GUI with syntax highlighting** — config editor, live preview, SQL manager.
+* 🔌 **Extensible** — add your own functions with a single decorator.
 
 ---
 
-## 📦 Установка
+## 📦 Installation
 
 ```bash
 pip install document-placeholder
 ```
 
-**Опциональные зависимости:**
+**Optional extras:**
 
-| Extra | Что включает |
-|-------|--------------|
-| `document-placeholder[gui]` | GUI-интерфейс (CustomTkinter) |
-| `document-placeholder[dev]` | Инструменты разработки (pytest) |
-| `document-placeholder[all]` | Всё вместе |
+| Extra | Includes |
+|-------|----------|
+| `document-placeholder[gui]` | GUI interface (CustomTkinter) |
+| `document-placeholder[dev]` | Development tools (pytest) |
+| `document-placeholder[all]` | Everything |
 
 ---
 
-## ⚡ Быстрый старт
+## ⚡ Quick Start
 
-### 1. Создайте Word-шаблон (`template.docx`)
+### 1. Create a Word template (`template.docx`)
 
-Вставьте плейсхолдеры в документ:
+Insert placeholders into the document:
 
 ```
 Invoice #{INVOICE_NUM}
@@ -60,7 +60,7 @@ Amount: ${PRICE}
 {DESCRIPTION}
 ```
 
-### 2. Напишите конфиг (`template.yaml`)
+### 2. Write a config (`template.yaml`)
 
 ```yaml
 ON_START:
@@ -97,7 +97,7 @@ ON_END:
   SQL('UPDATE doc SET num = num + 1 WHERE rowid = 1')
 ```
 
-### 3. Запустите
+### 3. Run
 
 ```bash
 docplaceholder -c template.yaml -t template.docx
@@ -118,11 +118,11 @@ docplaceholder -c template.yaml -t template.docx
 
 ---
 
-## 🎨 Язык выражений
+## 🎨 Expression Language
 
-Конфиг — это не просто ключ-значение. Каждое значение — это **выражение**, которое вычисляется.
+A config is not just key-value mapping. Every value is an **expression** that gets evaluated.
 
-### Арифметика и сравнения
+### Arithmetic and comparisons
 
 ```yaml
 TAX: ROUND(PRICE * 0.2, 2)
@@ -130,22 +130,22 @@ TOTAL: PRICE + TAX
 IS_PREMIUM: TOTAL > 1000
 ```
 
-### Шаблонные строки
+### Template strings
 
-Внутри `"..."` выражения `{expr}` подставляют вычисленные значения:
+Inside `"..."`, expressions like `{expr}` are interpolated into the final string:
 
 ```yaml
 PERIOD: "{CURRENT_DATE_NUM(day, month, year) - DAYS(30)} — {CURRENT_DATE_NUM(day, month, year)}"
 ```
 
-### Вложенные вызовы
+### Nested calls
 
 ```yaml
 INVOICE_NUM:
   "{CURRENT_DATE_NUM(year)}-{SQL('SELECT num FROM doc WHERE rowid = 1') + 1}"
 ```
 
-### Условная логика
+### Conditional logic
 
 ```yaml
 STATUS: IF(TOTAL > 1000, 'Premium', 'Standard')
@@ -153,44 +153,44 @@ DISCOUNT: IF(TOTAL >= 500, TOTAL * 0.1, 0)
 LABEL: SWITCH(STATUS, 'Premium', '⭐ Premium', 'Standard', '📋 Standard')
 ```
 
-**Поддерживаемые операторы:** `+` `-` `*` `/` `%` `>` `<` `>=` `<=` `==` `!=` `()`
+**Supported operators:** `+` `-` `*` `/` `%` `>` `<` `>=` `<=` `==` `!=` `()`
 
 ---
 
-## ⚙️ Конфигурация
+## ⚙️ Configuration
 
-### CLI-параметры
+### CLI arguments
 
 ```
 docplaceholder [-c CONFIG] [-t TEMPLATE] [-o OUTPUT] [--db DATABASE]
 ```
 
-| Параметр | По умолчанию | Описание |
-|----------|-------------|----------|
-| `-c, --config` | `template.yaml` | Путь к YAML-конфигу |
-| `-t, --template` | `template.docx` | Путь к Word-шаблону |
-| `-o, --output` | `output.docx` | Путь к выходному файлу |
-| `--db` | `data.db` | Путь к SQLite-базе |
-| `-V, --version` | | Версия программы |
+| Argument | Default | Description |
+|----------|---------|-------------|
+| `-c, --config` | `template.yaml` | Path to YAML config |
+| `-t, --template` | `template.docx` | Path to Word template |
+| `-o, --output` | `output.docx` | Path to output file |
+| `--db` | `data.db` | Path to SQLite database |
+| `-V, --version` | | Print program version |
 
-### Специальные ключи YAML
+### Special YAML keys
 
-| Ключ | Описание |
-|------|----------|
-| `ON_START` | Выражения, выполняемые **до** обработки (создание таблиц, инициализация) |
-| `ON_END` | Выражения, выполняемые **после** (инкремент счётчиков, очистка) |
-| `OUTPUT_NAME` | Шаблон имени файла: `"Invoice-{INVOICE_NUM}"` |
-| `OUTPUT_FORMAT` | Список форматов: `[docx, pdf]` |
+| Key | Description |
+|-----|-------------|
+| `ON_START` | Expressions executed **before** processing (table creation, initialization) |
+| `ON_END` | Expressions executed **after** processing (increment counters, cleanup) |
+| `OUTPUT_NAME` | Output filename template: `"Invoice-{INVOICE_NUM}"` |
+| `OUTPUT_FORMAT` | List of output formats: `[docx, pdf]` |
 
-Все остальные ключи — **плейсхолдеры**, которые подставляются в документ.
+All other keys are treated as **placeholders** and replaced in the document.
 
 ---
 
-## 🧰 Встроенные функции
+## 🧰 Built-in Functions
 
-**59 функций** в 5 категориях. Полный справочник: [FUNCTIONS.md](FUNCTIONS.md)
+**59 functions** in 5 categories. Full reference: [FUNCTIONS.md](FUNCTIONS.md)
 
-### 📅 Дата и время
+### 📅 Date and time
 
 ```yaml
 TODAY: TODAY()                                         # 16.02.2026
@@ -201,7 +201,7 @@ WEEK_AGO: "{TODAY() - DAYS(7)}"                        # 09.02.2026
 DIFF: DAYS_BETWEEN(DATE(2026, 1, 1), TODAY())          # 46
 ```
 
-### 🔤 Строки
+### 🔤 Strings
 
 ```yaml
 UPPER('hello')                    # HELLO
@@ -212,7 +212,7 @@ REPLACE('foo bar', 'bar', 'baz') # foo baz
 SPLIT('user@mail.com', '@', 1)   # mail.com
 ```
 
-### 🔢 Математика
+### 🔢 Math
 
 ```yaml
 ROUND(19.956, 2)                  # 19.96
@@ -222,13 +222,13 @@ AVG(10, 20, 30)                   # 20.0
 SQRT(144)                         # 12.0
 ```
 
-### 🧠 Логика
+### 🧠 Logic
 
 ```yaml
 IF(PRICE > 1000, 'expensive', 'cheap')
 COALESCE(SQL('SELECT name FROM clients'), 'Unknown')
 DEFAULT(value, 'N/A')
-SWITCH(status, 'draft', 'Черновик', 'sent', 'Отправлено', 'Неизвестно')
+SWITCH(status, 'draft', 'Draft', 'sent', 'Sent', 'Unknown')
 ```
 
 ### 🛢 SQL
@@ -240,36 +240,36 @@ SQL('INSERT INTO log (event) VALUES ("generated")')
 
 ---
 
-## 🖥 Графический интерфейс
+## 🖥 Graphical Interface
 
 ```bash
 pip install document-placeholder[gui]
 docplaceholder-gui
 ```
 
-GUI включает:
+The GUI includes:
 
-- **Редактор конфигов** с подсветкой синтаксиса YAML и кастомных конструкций (`SQL(...)`, `{expressions}`)
-- **Живой предпросмотр** вычисленных значений
-- **SQL-менеджер** — выполнение запросов, просмотр таблиц и схемы
-- **Горячие клавиши** — `Ctrl+S` сохранение, `Ctrl+F` поиск, `F5` обновление
+- **Config editor** with YAML and custom syntax highlighting (`SQL(...)`, `{expressions}`)
+- **Live preview** of evaluated values
+- **SQL manager** for running queries and viewing tables/schema
+- **Keyboard shortcuts** — `Ctrl+S` save, `Ctrl+F` search, `F5` refresh
 
 ---
 
-## 🔌 Расширение функций
+## 🔌 Extending Functions
 
-Добавить новую функцию — один декоратор:
+Add a custom function with a single decorator:
 
 ```python
 from document_placeholder.functions import FunctionRegistry
 
 @FunctionRegistry.register("MY_FUNC")
 def my_func(arg1, arg2):
-    """Ваша кастомная логика."""
+    """Your custom logic."""
     return f"{arg1}-{arg2}"
 ```
 
-После импорта модуля функция доступна в конфиге:
+After importing the module, the function becomes available in config expressions:
 
 ```yaml
 VALUE: MY_FUNC('hello', 'world')   # hello-world
@@ -277,7 +277,7 @@ VALUE: MY_FUNC('hello', 'world')   # hello-world
 
 ---
 
-## 📁 Использование как библиотеки
+## 📁 Library Usage
 
 ```python
 from document_placeholder.config import Config
@@ -300,7 +300,7 @@ processor.save("output.docx")
 
 ---
 
-## 🧪 Тестирование
+## 🧪 Testing
 
 ```bash
 pip install document-placeholder[dev]
@@ -315,18 +315,18 @@ pytest
 
 ## 🤝 Contributing
 
-1. Форкните репозиторий
-2. Создайте feature-ветку
-3. Закоммитьте изменения
-4. Откройте Pull Request
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Open a Pull Request
 
-Баги и предложения → [Issues](https://github.com/FlacSy/DocumentPlaceholder/issues)
+Bugs and feature requests → [Issues](https://github.com/FlacSy/DocumentPlaceholder/issues)
 
 ---
 
 ## 📄 License
 
-Проект распространяется под лицензией **MIT**. Подробнее в [LICENSE](LICENSE).
+This project is released under the **MIT** license. See [LICENSE](LICENSE) for details.
 
 <div align="center">
 

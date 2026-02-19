@@ -1,62 +1,62 @@
-# DocumentPlaceholder — Справочник функций
+# DocumentPlaceholder — Function Reference
 
-## Содержание
+## Table of Contents
 
-- [Язык выражений](#язык-выражений)
-  - [Литералы](#литералы)
-  - [Арифметические операторы](#арифметические-операторы)
-  - [Операторы сравнения](#операторы-сравнения)
-  - [Шаблонные строки](#шаблонные-строки)
-- [Функции](#функции)
-  - [Строковые](#строковые)
-  - [Математические](#математические)
-  - [Дата и время](#дата-и-время)
-  - [Логика и условия](#логика-и-условия)
-  - [База данных](#база-данных)
+- [Expression language](#expression-language)
+  - [Literals](#literals)
+  - [Arithmetic operators](#arithmetic-operators)
+  - [Comparison operators](#comparison-operators)
+  - [Template strings](#template-strings)
+- [Functions](#functions)
+  - [String functions](#string-functions)
+  - [Math functions](#math-functions)
+  - [Date and time](#date-and-time)
+  - [Logic and conditions](#logic-and-conditions)
+  - [Database](#database)
 
 ---
 
-## Язык выражений
+## Expression language
 
-В YAML-конфиге значение каждого плейсхолдера — это **выражение**, которое вычисляется
-автоматически. Внутри двойных кавычек можно встраивать `{выражение}` для интерполяции.
+In a YAML config, each placeholder value is an **expression** that gets evaluated
+automatically. Inside double quotes, you can embed `{expression}` for interpolation.
 
-### Литералы
+### Literals
 
-| Тип    | Пример             | Описание                          |
-|--------|---------------------|-----------------------------------|
-| Число  | `42`, `3.14`        | Целые и дробные числа             |
-| Строка | `'hello'`, `"world"`| Текст в одинарных или двойных кавычках |
+| Type | Example | Description |
+|------|---------|-------------|
+| Number | `42`, `3.14` | Integer and floating-point numbers |
+| String | `'hello'`, `"world"` | Text in single or double quotes |
 
-### Арифметические операторы
+### Arithmetic operators
 
-| Оператор | Описание       | Пример         | Результат |
-|----------|----------------|----------------|-----------|
-| `+`      | Сложение       | `10 + 3`       | `13`      |
-| `-`      | Вычитание      | `10 - 3`       | `7`       |
-| `*`      | Умножение      | `4 * 5`        | `20`      |
-| `/`      | Деление        | `10 / 3`       | `3.333…`  |
-| `%`      | Остаток        | `10 % 3`       | `1`       |
-| `-`      | Унарный минус  | `-5`           | `-5`      |
+| Operator | Description | Example | Result |
+|----------|-------------|---------|--------|
+| `+` | Addition | `10 + 3` | `13` |
+| `-` | Subtraction | `10 - 3` | `7` |
+| `*` | Multiplication | `4 * 5` | `20` |
+| `/` | Division | `10 / 3` | `3.333...` |
+| `%` | Modulo | `10 % 3` | `1` |
+| `-` | Unary minus | `-5` | `-5` |
 
-Приоритет: `*`, `/`, `%` выше чем `+`, `-`. Скобки `()` меняют порядок.
+Precedence: `*`, `/`, `%` are evaluated before `+`, `-`. Parentheses `()` change order.
 
-### Операторы сравнения
+### Comparison operators
 
-Возвращают `True` / `False`. Используются совместно с `IF()`.
+Return `True` / `False`. Commonly used together with `IF()`.
 
-| Оператор | Описание       | Пример         | Результат |
-|----------|----------------|----------------|-----------|
-| `>`      | Больше         | `5 > 3`        | `True`    |
-| `<`      | Меньше         | `2 < 1`        | `False`   |
-| `>=`     | Больше или равно| `10 >= 10`     | `True`    |
-| `<=`     | Меньше или равно| `5 <= 4`       | `False`   |
-| `==`     | Равно          | `3 == 3`       | `True`    |
-| `!=`     | Не равно       | `3 != 4`       | `True`    |
+| Operator | Description | Example | Result |
+|----------|-------------|---------|--------|
+| `>` | Greater than | `5 > 3` | `True` |
+| `<` | Less than | `2 < 1` | `False` |
+| `>=` | Greater or equal | `10 >= 10` | `True` |
+| `<=` | Less or equal | `5 <= 4` | `False` |
+| `==` | Equal | `3 == 3` | `True` |
+| `!=` | Not equal | `3 != 4` | `True` |
 
-### Шаблонные строки
+### Template strings
 
-Внутри строки в двойных кавычках `{выражение}` подставляет вычисленное значение:
+Inside a double-quoted string, `{expression}` is replaced with the evaluated value:
 
 ```yaml
 DESCRIPTION:
@@ -65,190 +65,190 @@ DESCRIPTION:
 
 ---
 
-## Функции
+## Functions
 
-### Строковые
+### String functions
 
-#### `UPPER(text)` → строка
+#### `UPPER(text)` → string
 
-Переводит текст в верхний регистр.
+Converts text to uppercase.
 
 ```yaml
 TITLE: UPPER('hello world')   # → "HELLO WORLD"
 ```
 
-#### `LOWER(text)` → строка
+#### `LOWER(text)` → string
 
-Переводит текст в нижний регистр.
+Converts text to lowercase.
 
 ```yaml
 CODE: LOWER('ABC')   # → "abc"
 ```
 
-#### `CAPITALIZE(text)` → строка
+#### `CAPITALIZE(text)` → string
 
-Делает первую букву заглавной, остальные строчными.
+Makes the first letter uppercase and the rest lowercase.
 
 ```yaml
 NAME: CAPITALIZE('john doe')   # → "John doe"
 ```
 
-#### `TITLE(text)` → строка
+#### `TITLE(text)` → string
 
-Делает заглавной первую букву каждого слова.
+Capitalizes the first letter of each word.
 
 ```yaml
 NAME: TITLE('john doe')   # → "John Doe"
 ```
 
-#### `TRIM(text)` → строка
+#### `TRIM(text)` → string
 
-Удаляет пробелы по краям строки.
+Removes whitespace from both ends of the string.
 
 ```yaml
 CLEAN: TRIM('  hello  ')   # → "hello"
 ```
 
-#### `TRIM_LEFT(text)` → строка
+#### `TRIM_LEFT(text)` → string
 
-Удаляет пробелы слева.
+Removes leading whitespace.
 
 ```yaml
 CLEAN: TRIM_LEFT('  hello  ')   # → "hello  "
 ```
 
-#### `TRIM_RIGHT(text)` → строка
+#### `TRIM_RIGHT(text)` → string
 
-Удаляет пробелы справа.
+Removes trailing whitespace.
 
 ```yaml
 CLEAN: TRIM_RIGHT('  hello  ')   # → "  hello"
 ```
 
-#### `LEN(text)` → число
+#### `LEN(text)` → number
 
-Возвращает длину строки.
+Returns the string length.
 
 ```yaml
 LENGTH: LEN('hello')   # → 5
 ```
 
-#### `REPLACE(text, old, new)` → строка
+#### `REPLACE(text, old, new)` → string
 
-Заменяет все вхождения подстроки `old` на `new`.
+Replaces all occurrences of substring `old` with `new`.
 
 ```yaml
 FIXED: REPLACE('foo bar foo', 'foo', 'baz')   # → "baz bar baz"
 ```
 
-#### `SUBSTR(text, start [, length])` → строка
+#### `SUBSTR(text, start [, length])` → string
 
-Возвращает подстроку, начиная с позиции `start` (0-based). Если указан `length` — ограничивает длину.
+Returns a substring starting at `start` (0-based). If `length` is provided, limits output length.
 
 ```yaml
 PART: SUBSTR('hello world', 6)       # → "world"
 PART: SUBSTR('hello world', 0, 5)    # → "hello"
 ```
 
-#### `LEFT(text, n)` → строка
+#### `LEFT(text, n)` → string
 
-Возвращает первые `n` символов.
+Returns the first `n` characters.
 
 ```yaml
 PREFIX: LEFT('abcdef', 3)   # → "abc"
 ```
 
-#### `RIGHT(text, n)` → строка
+#### `RIGHT(text, n)` → string
 
-Возвращает последние `n` символов.
+Returns the last `n` characters.
 
 ```yaml
 SUFFIX: RIGHT('abcdef', 3)   # → "def"
 ```
 
-#### `PAD_LEFT(text, width [, char])` → строка
+#### `PAD_LEFT(text, width [, char])` → string
 
-Дополняет строку слева до ширины `width` символом `char` (по умолчанию пробел).
+Pads string on the left to `width` using `char` (space by default).
 
 ```yaml
 NUM: PAD_LEFT('42', 6, '0')   # → "000042"
 ```
 
-#### `PAD_RIGHT(text, width [, char])` → строка
+#### `PAD_RIGHT(text, width [, char])` → string
 
-Дополняет строку справа до ширины `width`.
+Pads string on the right to `width`.
 
 ```yaml
 COL: PAD_RIGHT('Name', 20, '.')   # → "Name................"
 ```
 
-#### `REPEAT(text, n)` → строка
+#### `REPEAT(text, n)` → string
 
-Повторяет строку `n` раз.
+Repeats a string `n` times.
 
 ```yaml
 LINE: REPEAT('-', 40)   # → "----------------------------------------"
 ```
 
-#### `CONCAT(a, b, ...)` → строка
+#### `CONCAT(a, b, ...)` → string
 
-Склеивает все аргументы в одну строку.
+Concatenates all arguments into one string.
 
 ```yaml
 FULL: CONCAT('John', ' ', 'Doe')   # → "John Doe"
 ```
 
-#### `JOIN(separator, a, b, ...)` → строка
+#### `JOIN(separator, a, b, ...)` → string
 
-Склеивает аргументы через разделитель.
+Joins arguments using `separator`.
 
 ```yaml
 CSV: JOIN(', ', 'apple', 'banana', 'cherry')   # → "apple, banana, cherry"
 ```
 
-#### `CONTAINS(text, sub)` → логическое
+#### `CONTAINS(text, sub)` → boolean
 
-Возвращает `True`, если `text` содержит подстроку `sub`.
+Returns `True` if `text` contains substring `sub`.
 
 ```yaml
 HAS_AT: CONTAINS('user@mail.com', '@')   # → True
 ```
 
-#### `STARTS_WITH(text, prefix)` → логическое
+#### `STARTS_WITH(text, prefix)` → boolean
 
-Возвращает `True`, если `text` начинается с `prefix`.
+Returns `True` if `text` starts with `prefix`.
 
 ```yaml
 IS_HTTP: STARTS_WITH('https://example.com', 'https')   # → True
 ```
 
-#### `ENDS_WITH(text, suffix)` → логическое
+#### `ENDS_WITH(text, suffix)` → boolean
 
-Возвращает `True`, если `text` заканчивается на `suffix`.
+Returns `True` if `text` ends with `suffix`.
 
 ```yaml
 IS_PDF: ENDS_WITH('report.pdf', '.pdf')   # → True
 ```
 
-#### `SPLIT(text, separator, index)` → строка
+#### `SPLIT(text, separator, index)` → string
 
-Разбивает `text` по `separator` и возвращает элемент с индексом `index` (0-based).
+Splits `text` by `separator` and returns item at `index` (0-based).
 
 ```yaml
 DOMAIN: SPLIT('user@example.com', '@', 1)   # → "example.com"
 ```
 
-#### `REVERSE(text)` → строка
+#### `REVERSE(text)` → string
 
-Разворачивает строку.
+Reverses the string.
 
 ```yaml
 REV: REVERSE('abc')   # → "cba"
 ```
 
-#### `COUNT_SUBSTR(text, sub)` → число
+#### `COUNT_SUBSTR(text, sub)` → number
 
-Считает количество непересекающихся вхождений подстроки.
+Counts non-overlapping substring occurrences.
 
 ```yaml
 SPACES: COUNT_SUBSTR('a b c d', ' ')   # → 3
@@ -256,168 +256,168 @@ SPACES: COUNT_SUBSTR('a b c d', ' ')   # → 3
 
 ---
 
-### Математические
+### Math functions
 
-#### `ROUND(n [, decimals])` → число
+#### `ROUND(n [, decimals])` → number
 
-Округляет `n` до `decimals` знаков после запятой (по умолчанию 0).
+Rounds `n` to `decimals` digits after the decimal point (default: 0).
 
 ```yaml
 PRICE: ROUND(19.956, 2)   # → 19.96
 WHOLE: ROUND(3.7)          # → 4.0
 ```
 
-#### `FLOOR(n)` → целое
+#### `FLOOR(n)` → integer
 
-Округляет вниз до ближайшего целого.
+Rounds down to nearest integer.
 
 ```yaml
 LOW: FLOOR(3.9)   # → 3
 ```
 
-#### `CEIL(n)` → целое
+#### `CEIL(n)` → integer
 
-Округляет вверх до ближайшего целого.
+Rounds up to nearest integer.
 
 ```yaml
 HIGH: CEIL(3.1)   # → 4
 ```
 
-#### `ABS(n)` → число
+#### `ABS(n)` → number
 
-Возвращает абсолютное значение.
+Returns absolute value.
 
 ```yaml
 DIFF: ABS(-15)   # → 15
 ```
 
-#### `MIN(a, b, ...)` → число
+#### `MIN(a, b, ...)` → number
 
-Возвращает минимальное значение из аргументов.
+Returns the smallest argument.
 
 ```yaml
 LOWEST: MIN(10, 3, 7, 1)   # → 1
 ```
 
-#### `MAX(a, b, ...)` → число
+#### `MAX(a, b, ...)` → number
 
-Возвращает максимальное значение из аргументов.
+Returns the largest argument.
 
 ```yaml
 HIGHEST: MAX(10, 3, 7, 1)   # → 10
 ```
 
-#### `SUM(a, b, ...)` → число
+#### `SUM(a, b, ...)` → number
 
-Возвращает сумму всех аргументов.
+Returns sum of all arguments.
 
 ```yaml
 TOTAL: SUM(100, 200, 50)   # → 350
 ```
 
-#### `AVG(a, b, ...)` → число
+#### `AVG(a, b, ...)` → number
 
-Возвращает среднее арифметическое.
+Returns arithmetic mean.
 
 ```yaml
 AVERAGE: AVG(10, 20, 30)   # → 20.0
 ```
 
-#### `POW(base, exp)` → число
+#### `POW(base, exp)` → number
 
-Возведение в степень.
+Raises `base` to power `exp`.
 
 ```yaml
 SQUARED: POW(2, 10)   # → 1024.0
 ```
 
-#### `SQRT(n)` → число
+#### `SQRT(n)` → number
 
-Квадратный корень.
+Square root.
 
 ```yaml
 ROOT: SQRT(144)   # → 12.0
 ```
 
-#### `INT(n)` → целое
+#### `INT(n)` → integer
 
-Приведение к целому числу (отбрасывает дробную часть).
+Converts to integer (drops fractional part).
 
 ```yaml
 WHOLE: INT(9.87)   # → 9
 ```
 
-#### `FLOAT(n)` → дробное
+#### `FLOAT(n)` → float
 
-Приведение к дробному числу.
+Converts to float.
 
 ```yaml
 DECIMAL: FLOAT(42)   # → 42.0
 ```
 
-#### `FORMAT_NUM(n [, decimals])` → строка
+#### `FORMAT_NUM(n [, decimals])` → string
 
-Форматирует число с разделителями тысяч и указанным числом десятичных знаков (по умолчанию 2).
+Formats number with thousands separators and decimal precision (default: 2).
 
 ```yaml
 SALARY: FORMAT_NUM(1234567.891, 2)   # → "1,234,567.89"
 CLEAN:  FORMAT_NUM(5000, 0)          # → "5,000"
 ```
 
-#### `RANDOM_INT(low, high)` → целое
+#### `RANDOM_INT(low, high)` → integer
 
-Возвращает случайное целое число в диапазоне [low, high].
+Returns a random integer in range [low, high].
 
 ```yaml
-LUCK: RANDOM_INT(1, 100)   # → 42 (случайное)
+LUCK: RANDOM_INT(1, 100)   # → 42 (random)
 ```
 
 ---
 
-### Дата и время
+### Date and time
 
-#### `TODAY()` → дата
+#### `TODAY()` → date
 
-Возвращает сегодняшнюю дату. Формат по умолчанию: `дд.мм.гггг`.
+Returns current date. Default format: `dd.mm.yyyy`.
 
 ```yaml
 NOW: TODAY()   # → "16.02.2026"
 ```
 
-#### `DATE(year, month, day)` → дата
+#### `DATE(year, month, day)` → date
 
-Создаёт дату из компонентов.
+Builds a date from components.
 
 ```yaml
 DEADLINE: DATE(2026, 12, 31)   # → "31.12.2026"
 ```
 
-#### `CURRENT_DATE_NUM(component, ...)` → число или дата
+#### `CURRENT_DATE_NUM(component, ...)` → number or date
 
-С одним аргументом — возвращает числовой компонент текущей даты.
-С несколькими — возвращает дату в формате `дд.мм.гггг` (порядок компонентов по аргументам).
+With one argument, returns numeric component of current date.
+With multiple arguments, returns date in `dd.mm.yyyy` format (component order follows args).
 
-| Компонент | Результат (16 февраля 2026) |
-|-----------|------------------------------|
-| `year`    | `2026`                       |
-| `month`   | `2`                          |
-| `day`     | `16`                         |
+| Component | Result (February 16, 2026) |
+|-----------|-----------------------------|
+| `year`    | `2026`                      |
+| `month`   | `2`                         |
+| `day`     | `16`                        |
 
 ```yaml
 YEAR:      CURRENT_DATE_NUM(year)                 # → 2026
 FULL_DATE: CURRENT_DATE_NUM(day, month, year)     # → "16.02.2026"
 ```
 
-#### `CURRENT_DATE_STR(component)` → строка
+#### `CURRENT_DATE_STR(component)` → string
 
-Возвращает текстовое представление компонента даты.
+Returns string representation of date component.
 
-| Компонент | Результат (16 февраля 2026) |
-|-----------|------------------------------|
-| `month`   | `"February"`                 |
-| `day`     | `"Monday"`                   |
-| `year`    | `"2026"`                     |
-| *(нет)*   | `"February 16, 2026"`        |
+| Component | Result (February 16, 2026) |
+|-----------|-----------------------------|
+| `month`   | `"February"`                |
+| `day`     | `"Monday"`                  |
+| `year`    | `"2026"`                    |
+| *(none)*  | `"February 16, 2026"`       |
 
 ```yaml
 MONTH: CURRENT_DATE_STR(month)   # → "February"
@@ -425,159 +425,159 @@ DAY:   CURRENT_DATE_STR(day)     # → "Monday"
 FULL:  CURRENT_DATE_STR()        # → "February 16, 2026"
 ```
 
-#### `DATE_FORMAT(date, format)` → строка
+#### `DATE_FORMAT(date, format)` → string
 
-Форматирует дату по шаблону `strftime`.
+Formats date with `strftime` pattern.
 
-| Код  | Описание                | Пример    |
-|------|-------------------------|-----------|
-| `%Y` | Год (4 цифры)           | `2026`    |
-| `%m` | Месяц (01–12)           | `02`      |
-| `%d` | День (01–31)            | `16`      |
-| `%B` | Название месяца         | `February`|
-| `%A` | Название дня недели     | `Monday`  |
-| `%H` | Часы (00–23)            | `14`      |
-| `%M` | Минуты (00–59)          | `30`      |
+| Code | Description | Example |
+|------|-------------|---------|
+| `%Y` | Year (4 digits) | `2026` |
+| `%m` | Month (01–12) | `02` |
+| `%d` | Day (01–31) | `16` |
+| `%B` | Month name | `February` |
+| `%A` | Weekday name | `Monday` |
+| `%H` | Hours (00–23) | `14` |
+| `%M` | Minutes (00–59) | `30` |
 
 ```yaml
 ISO_DATE: DATE_FORMAT(TODAY(), '%Y-%m-%d')        # → "2026-02-16"
 PRETTY:   DATE_FORMAT(DATE(2026, 3, 8), '%d %B %Y')  # → "08 March 2026"
 ```
 
-#### `DAY_OF_WEEK([date])` → число
+#### `DAY_OF_WEEK([date])` → number
 
-Возвращает номер дня недели по ISO (понедельник = 1 … воскресенье = 7).
-Без аргументов — для сегодня.
+Returns ISO weekday number (Monday = 1 ... Sunday = 7).
+Without arguments, uses today.
 
 ```yaml
-DOW: DAY_OF_WEEK()                    # → 1 (понедельник)
-DOW: DAY_OF_WEEK(DATE(2026, 1, 1))   # → 4 (четверг)
+DOW: DAY_OF_WEEK()                    # → 1 (Monday)
+DOW: DAY_OF_WEEK(DATE(2026, 1, 1))   # → 4 (Thursday)
 ```
 
-#### `DAYS_BETWEEN(date_a, date_b)` → число
+#### `DAYS_BETWEEN(date_a, date_b)` → number
 
-Возвращает количество дней между двумя датами (`date_b - date_a`).
-Отрицательное, если `date_a` позже `date_b`.
+Returns number of days between two dates (`date_b - date_a`).
+Negative if `date_a` is later than `date_b`.
 
 ```yaml
 DIFF: DAYS_BETWEEN(DATE(2026, 1, 1), DATE(2026, 2, 1))   # → 31
 ```
 
-#### `DAYS(n)` → интервал
+#### `DAYS(n)` → interval
 
-Создаёт интервал в днях для арифметики с датами.
+Creates day interval for date arithmetic.
 
 ```yaml
 PERIOD: "{CURRENT_DATE_NUM(day, month, year) - DAYS(7)} — {CURRENT_DATE_NUM(day, month, year)}"
 # → "09.02.2026 — 16.02.2026"
 ```
 
-#### `WEEKS(n)` → интервал
+#### `WEEKS(n)` → interval
 
-Создаёт интервал в неделях.
+Creates week interval.
 
 ```yaml
-NEXT: "{TODAY() + WEEKS(2)}"   # → дата через 2 недели
+NEXT: "{TODAY() + WEEKS(2)}"   # → date in 2 weeks
 ```
 
-#### `MONTHS(n)` → интервал
+#### `MONTHS(n)` → interval
 
-Приблизительный интервал в месяцах (30 дней = 1 месяц).
+Approximate month interval (30 days = 1 month).
 
 ```yaml
-LATER: "{TODAY() + MONTHS(3)}"   # → дата через ~3 месяца
+LATER: "{TODAY() + MONTHS(3)}"   # → date in ~3 months
 ```
 
-#### `YEARS(n)` → интервал
+#### `YEARS(n)` → interval
 
-Приблизительный интервал в годах (365 дней = 1 год).
+Approximate year interval (365 days = 1 year).
 
 ```yaml
-EXPIRY: "{TODAY() + YEARS(1)}"   # → дата через ~1 год
+EXPIRY: "{TODAY() + YEARS(1)}"   # → date in ~1 year
 ```
 
 ---
 
-### Логика и условия
+### Logic and conditions
 
-#### `IF(condition, then_value [, else_value])` → значение
+#### `IF(condition, then_value [, else_value])` → value
 
-Если `condition` истинно — возвращает `then_value`, иначе — `else_value` (или пустую строку).
+If `condition` is true, returns `then_value`; otherwise returns `else_value` (or empty string).
 
 ```yaml
 STATUS:   IF(PRICE > 1000, 'Premium', 'Standard')
 DISCOUNT: IF(PRICE >= 500, PRICE * 0.1, 0)
 ```
 
-#### `COALESCE(a, b, ...)` → значение
+#### `COALESCE(a, b, ...)` → value
 
-Возвращает первый аргумент, который не равен `None`.
+Returns first argument that is not `None`.
 
 ```yaml
 NAME: COALESCE(SQL('SELECT name FROM clients WHERE id = 1'), 'Unknown')
 ```
 
-#### `DEFAULT(value, fallback)` → значение
+#### `DEFAULT(value, fallback)` → value
 
-Возвращает `value`, если он не `None`, иначе `fallback`.
+Returns `value` if it is not `None`, otherwise `fallback`.
 
 ```yaml
 CITY: DEFAULT(SQL('SELECT city FROM clients WHERE id = 1'), 'N/A')
 ```
 
-#### `DEFINED(value)` → логическое
+#### `DEFINED(value)` → boolean
 
-Возвращает `True`, если `value` не является `None`.
+Returns `True` if `value` is not `None`.
 
 ```yaml
 HAS_NAME: DEFINED(SQL('SELECT name FROM clients WHERE id = 1'))
 ```
 
-#### `NOT(value)` → логическое
+#### `NOT(value)` → boolean
 
-Логическое отрицание.
+Logical negation.
 
 ```yaml
 IS_EMPTY: NOT(DEFINED(SQL('SELECT name FROM clients WHERE id = 1')))
 ```
 
-#### `AND(a, b, ...)` → логическое
+#### `AND(a, b, ...)` → boolean
 
-Возвращает `True`, если **все** аргументы истинны.
+Returns `True` if **all** arguments are truthy.
 
 ```yaml
 VALID: AND(PRICE > 0, LEN(TITLE) > 0)
 ```
 
-#### `OR(a, b, ...)` → логическое
+#### `OR(a, b, ...)` → boolean
 
-Возвращает `True`, если **хотя бы один** аргумент истинен.
+Returns `True` if **at least one** argument is truthy.
 
 ```yaml
 ALERT: OR(PRICE > 10000, DAYS_LEFT < 3)
 ```
 
-#### `CHOOSE(index, val0, val1, ...)` → значение
+#### `CHOOSE(index, val0, val1, ...)` → value
 
-Возвращает значение по индексу (0-based).
+Returns value by index (0-based).
 
 ```yaml
-# Месяц квартала
+# Quarter by month
 QUARTER: CHOOSE(CURRENT_DATE_NUM(month) % 4, 'Q1', 'Q2', 'Q3', 'Q4')
 ```
 
-#### `SWITCH(value, case1, result1, case2, result2, ... [, default])` → значение
+#### `SWITCH(value, case1, result1, case2, result2, ... [, default])` → value
 
-Сопоставляет `value` с парами `case → result`. Если ничего не совпало — возвращает `default`
-(последний непарный аргумент) или `None`.
+Matches `value` against `case → result` pairs. If no case matches, returns `default`
+(the last unpaired argument) or `None`.
 
 ```yaml
-LABEL: SWITCH(STATUS, 'draft', 'Черновик', 'sent', 'Отправлено', 'Неизвестно')
+LABEL: SWITCH(STATUS, 'draft', 'Draft', 'sent', 'Sent', 'Unknown')
 ```
 
-#### `ENV(name [, fallback])` → строка
+#### `ENV(name [, fallback])` → string
 
-Возвращает значение переменной окружения. Если переменной нет — `fallback` (по умолчанию `""`).
+Returns environment variable value. If variable is missing, returns `fallback` (default: `""`).
 
 ```yaml
 USER: ENV('USER')               # → "flacsy"
@@ -586,15 +586,15 @@ HOME: ENV('HOME', '/tmp')       # → "/home/flacsy"
 
 ---
 
-### База данных
+### Database
 
-#### `SQL(query)` → значение
+#### `SQL(query)` → value
 
-Выполняет SQL-запрос к SQLite-базе данных.
+Executes SQL query against SQLite database.
 
-- **SELECT** — возвращает значение первого столбца первой строки (или `None` если результат пуст).
-  При нескольких столбцах возвращает кортеж.
-- **INSERT / UPDATE / DELETE / CREATE** — выполняет запрос как побочный эффект, возвращает `None`.
+- **SELECT** — returns first column of first row (or `None` if result is empty).
+  If query has multiple columns, returns a tuple.
+- **INSERT / UPDATE / DELETE / CREATE** — executes query as side effect, returns `None`.
 
 ```yaml
 ON_START:
@@ -610,18 +610,18 @@ ON_END:
 
 ---
 
-## Специальные ключи конфига
+## Special config keys
 
-Эти ключи не являются плейсхолдерами и обрабатываются отдельно:
+These keys are not placeholders and are processed separately:
 
-| Ключ             | Описание                                                     |
-|------------------|--------------------------------------------------------------|
-| `ON_START`       | Список выражений, выполняемых **до** обработки плейсхолдеров |
-| `ON_END`         | Список выражений, выполняемых **после** обработки            |
-| `OUTPUT_NAME`    | Шаблон имени выходного файла (поддерживает `{PLACEHOLDER}`)  |
-| `OUTPUT_FORMAT`  | Список форматов для экспорта (`docx`, `pdf`, …)              |
+| Key | Description |
+|-----|-------------|
+| `ON_START` | List of expressions executed **before** placeholder processing |
+| `ON_END` | List of expressions executed **after** processing |
+| `OUTPUT_NAME` | Output filename template (supports `{PLACEHOLDER}`) |
+| `OUTPUT_FORMAT` | Export formats list (`docx`, `pdf`, ...) |
 
-### Пример полного конфига
+### Full config example
 
 ```yaml
 ON_START:
