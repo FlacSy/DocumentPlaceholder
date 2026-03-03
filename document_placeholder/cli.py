@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 import document_placeholder.functions.date  # noqa: F401 — register functions
+import document_placeholder.functions.image  # noqa: F401
 import document_placeholder.functions.logic  # noqa: F401
 import document_placeholder.functions.math  # noqa: F401
 import document_placeholder.functions.string  # noqa: F401
